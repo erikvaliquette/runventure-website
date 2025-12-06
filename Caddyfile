@@ -8,16 +8,16 @@
     encode gzip
 }
 
-# Production (uncomment when ready, requires DNS pointing to your Mac mini)
-# runventure.ca {
-#     root * /Users/erik/Documents/GitHub/runventure-website/public
-#     file_server
-#     encode gzip
-#     
-#     # Security headers
-#     header {
-#         X-Content-Type-Options nosniff
-#         X-Frame-Options DENY
-#         Referrer-Policy strict-origin-when-cross-origin
-#     }
-# }
+# Production
+runventure.ca, www.runventure.ca {
+    root * /Users/erik/Documents/GitHub/runventure-website/public
+    file_server
+    encode gzip
+    
+    # Security headers
+    header {
+        X-Content-Type-Options nosniff
+        X-Frame-Options DENY
+        Referrer-Policy strict-origin-when-cross-origin
+    }
+}

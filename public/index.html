@@ -3,36 +3,797 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RunVenture - Coming Soon</title>
+    <title>RunVenture - Smart Running Apps</title>
+    <meta name="description" content="RunVenture creates intelligent running apps. Runner's Breath syncs your breathing with your cadence for better performance.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+        * {
             margin: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --accent: #22c55e;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background: var(--light);
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        nav a {
+            color: var(--gray);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-text {
             color: white;
         }
-        .container {
-            text-align: center;
-            padding: 2rem;
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
         }
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-        }
-        p {
+        
+        .hero p {
             font-size: 1.25rem;
             opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            margin-left: 1rem;
+        }
+        
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .phone-mockup {
+            width: 280px;
+            height: 560px;
+            background: #1a1a2e;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #1e1e3f 0%, #2d2d5a 100%);
+            border-radius: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            color: white;
+        }
+        
+        .breath-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #16a34a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            animation: breathe 5s ease-in-out infinite;
+            box-shadow: 0 0 40px rgba(34, 197, 94, 0.4);
+        }
+        
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            40% { transform: scale(1.15); opacity: 1; }
+        }
+        
+        .phone-stats {
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .phone-stats .cadence {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .phone-stats .label {
+            font-size: 0.875rem;
+            opacity: 0.7;
+        }
+        
+        .pattern-badge {
+            margin-top: 1rem;
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        
+        /* Patterns Section */
+        .patterns {
+            background: var(--dark);
+            color: white;
+            padding: 6rem 2rem;
+        }
+        
+        .patterns .section-title p {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .patterns-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+        }
+        
+        .pattern-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: background 0.2s;
+        }
+        
+        .pattern-card:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .pattern-card .ratio {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .pattern-card .name {
+            font-size: 0.875rem;
+            opacity: 0.7;
+            margin-top: 0.25rem;
+        }
+        
+        /* Box Breathing Section */
+        .box-breathing {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+        }
+        
+        .box-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .box-visual {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .box-square {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 16px;
+        }
+        
+        .box-side {
+            position: absolute;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .box-side.top { top: -30px; left: 50%; transform: translateX(-50%); }
+        .box-side.right { right: -50px; top: 50%; transform: translateY(-50%); }
+        .box-side.bottom { bottom: -30px; left: 50%; transform: translateX(-50%); }
+        .box-side.left { left: -45px; top: 50%; transform: translateY(-50%); }
+        
+        .box-dot {
+            width: 16px;
+            height: 16px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.6);
+            animation: boxPath 16s linear infinite;
+        }
+        
+        @keyframes boxPath {
+            0%, 100% { top: -8px; left: -8px; }
+            25% { top: -8px; left: calc(100% - 8px); }
+            50% { top: calc(100% - 8px); left: calc(100% - 8px); }
+            75% { top: calc(100% - 8px); left: -8px; }
+        }
+        
+        .box-text h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .box-text p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .box-features {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .box-features li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            opacity: 0.9;
+        }
+        
+        .box-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        @media (max-width: 900px) {
+            .box-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .box-visual {
+                order: -1;
+            }
+            
+            .box-features {
+                text-align: left;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+        
+        /* Voices Section */
+        .voices {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        }
+        
+        .voices-grid {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .voice-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        
+        .voice-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent), #16a34a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+        }
+        
+        .voice-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
+        .voice-title {
+            color: var(--gray);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        
+        .charity-note {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+        
+        .charity-note .heart {
+            font-size: 1.25rem;
+        }
+        
+        @media (max-width: 600px) {
+            .voices-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: linear-gradient(180deg, var(--light) 0%, white 100%);
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta p {
+            color: var(--gray);
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+        }
+        
+        .app-store-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--dark);
+            color: white;
+            padding: 0.875rem 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+        
+        .app-store-btn:hover {
+            transform: scale(1.02);
+        }
+        
+        .app-store-btn svg {
+            width: 28px;
+            height: 28px;
+        }
+        
+        .app-store-btn .text {
+            text-align: left;
+        }
+        
+        .app-store-btn .small {
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+        
+        .app-store-btn .big {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .coming-soon-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: rgba(255,255,255,0.7);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        footer .logo {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        footer p {
+            font-size: 0.875rem;
+        }
+        
+        footer a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            color: white;
+        }
+        
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-visual {
+                order: -1;
+            }
+            
+            .phone-mockup {
+                width: 220px;
+                height: 440px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+                display: block;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>RunVenture</h1>
-        <p>Coming Soon</p>
-    </div>
+    <nav>
+        <div class="logo">RunVenture</div>
+        <div>
+            <a href="#features">Features</a>
+            <a href="#patterns">Patterns</a>
+            <a href="#voices">Voice Packs</a>
+            <a href="#download">Download</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Breathe in sync with your stride</h1>
+                <p>Runner's Breath uses real-time cadence tracking to guide your breathing pattern, helping you run more efficiently and avoid side stitches.</p>
+                <a href="#download" class="btn btn-primary">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                    Download App
+                </a>
+                <a href="#features" class="btn btn-secondary">Learn More</a>
+            </div>
+            <div class="hero-visual">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="breath-circle">Inhale</div>
+                        <div class="phone-stats">
+                            <div class="cadence">172</div>
+                            <div class="label">steps/min</div>
+                        </div>
+                        <div class="pattern-badge">3:2 Pattern</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2>Run smarter, not harder</h2>
+            <p>Runner's Breath combines real-time motion tracking with proven breathing techniques used by elite athletes.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Real-Time Cadence</h3>
+                <p>Uses CoreMotion and HealthKit to track your exact running cadence and sync breathing cues perfectly.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⌚</div>
+                <h3>Apple Watch App</h3>
+                <p>Standalone watch app with haptic feedback so you can leave your phone at home.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔊</div>
+                <h3>Multiple Feedback Modes</h3>
+                <p>Choose metronome ticks, voice prompts, haptics, or any combination that works for you.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Privacy First</h3>
+                <p>All data stays on your device. No accounts, no cloud sync, no tracking.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎁</div>
+                <h3>Free to Download</h3>
+                <p>Core app is completely free. Unlock premium voice packs from elite runners and trail legends.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">❤️</div>
+                <h3>Apple Health Sync</h3>
+                <p>Sessions automatically save to Apple Health. Track your mindful minutes alongside your other health data.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="patterns" id="patterns">
+        <div class="section-title">
+            <h2>Breathing patterns for every pace</h2>
+            <p>Choose from scientifically-backed patterns used by professional runners worldwide.</p>
+        </div>
+        <div class="patterns-grid">
+            <div class="pattern-card">
+                <div class="ratio">2:2</div>
+                <div class="name">Sprints</div>
+            </div>
+            <div class="pattern-card">
+                <div class="ratio">3:2</div>
+                <div class="name">Tempo Runs</div>
+            </div>
+            <div class="pattern-card">
+                <div class="ratio">3:3</div>
+                <div class="name">Easy Runs</div>
+            </div>
+            <div class="pattern-card">
+                <div class="ratio">4:3</div>
+                <div class="name">Long Distance</div>
+            </div>
+            <div class="pattern-card">
+                <div class="ratio">4:4</div>
+                <div class="name">Recovery</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="box-breathing" id="box-breathing">
+        <div class="box-content">
+            <div class="box-visual">
+                <div class="box-animation">
+                    <div class="box-square">
+                        <div class="box-side top"><span>Inhale</span></div>
+                        <div class="box-side right"><span>Hold</span></div>
+                        <div class="box-side bottom"><span>Exhale</span></div>
+                        <div class="box-side left"><span>Hold</span></div>
+                        <div class="box-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-text">
+                <h2>Box Breathing Mode</h2>
+                <p>Not running? Use Box Breathing for pre-race calm, post-run recovery, or daily stress relief. The same technique used by Navy SEALs and elite athletes.</p>
+                <ul class="box-features">
+                    <li><strong>4 equal phases:</strong> Inhale → Hold → Exhale → Hold</li>
+                    <li><strong>Customizable duration:</strong> 3-8 seconds per phase</li>
+                    <li><strong>Guided sessions:</strong> Set rounds or go unlimited</li>
+                    <li><strong>Voice coaching:</strong> Count along with your chosen voice pack</li>
+                    <li><strong>Health tracking:</strong> Sessions sync to Apple Health automatically</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="voices" id="voices">
+        <div class="section-title">
+            <h2>Voices that inspire</h2>
+            <p>Premium voice packs from elite trail runners and marathoners. 80% of proceeds go directly to the charity of each athlete's choice.</p>
+        </div>
+        <div class="voices-grid">
+            <div class="voice-card">
+                <div class="voice-avatar">🏃</div>
+                <div class="voice-name">Coming Soon</div>
+                <div class="voice-title">Elite Trail Runner</div>
+            </div>
+            <div class="voice-card">
+                <div class="voice-avatar">🏃‍♀️</div>
+                <div class="voice-name">Coming Soon</div>
+                <div class="voice-title">Ultra Marathoner</div>
+            </div>
+            <div class="voice-card">
+                <div class="voice-avatar">🥇</div>
+                <div class="voice-name">Coming Soon</div>
+                <div class="voice-title">Olympic Athlete</div>
+            </div>
+        </div>
+        <div class="charity-note">
+            <span class="heart">❤️</span> 80% of voice pack proceeds support athlete-chosen charities
+        </div>
+    </section>
+
+    <section class="cta" id="download">
+        <h2>Ready to transform your running?</h2>
+        <p>Download Runner's Breath free and start breathing better today.</p>
+        <a href="#" class="app-store-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            <div class="text">
+                <div class="small">Download on the</div>
+                <div class="big">App Store</div>
+            </div>
+        </a>
+        <span class="coming-soon-badge">Coming Soon</span>
+    </section>
+
+    <footer>
+        <div class="logo">RunVenture</div>
+        <p>© 2025 RunVenture. All rights reserved.</p>
+        <p style="margin-top: 0.5rem;"><a href="mailto:hello@runventure.ca">hello@runventure.ca</a></p>
+    </footer>
 </body>
 </html>
