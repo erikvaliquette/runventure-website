@@ -1,0 +1,23 @@
+# RunVenture Marketing Site - Caddy Configuration
+# For Mac mini self-hosting on UniFi network
+
+# Development (local testing)
+:8080 {
+    root * /Users/erik/Documents/GitHub/runventure-website/public
+    file_server
+    encode gzip
+}
+
+# Production (uncomment when ready, requires DNS pointing to your Mac mini)
+# runventure.ca {
+#     root * /Users/erik/Documents/GitHub/runventure-website/public
+#     file_server
+#     encode gzip
+#     
+#     # Security headers
+#     header {
+#         X-Content-Type-Options nosniff
+#         X-Frame-Options DENY
+#         Referrer-Policy strict-origin-when-cross-origin
+#     }
+# }
