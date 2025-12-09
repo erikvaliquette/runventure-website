@@ -3,21 +3,21 @@
 
 # Development (local testing)
 :8080 {
-    root * /Users/erik/Documents/GitHub/runventure-website/public
-    file_server
-    encode gzip
+	root * /var/www/runventure
+	file_server
+	encode gzip
 }
 
 # Production
 runventure.ca, www.runventure.ca {
-    root * /Users/erik/Documents/GitHub/runventure-website/public
-    file_server
-    encode gzip
-    
-    # Security headers
-    header {
-        X-Content-Type-Options nosniff
-        X-Frame-Options DENY
-        Referrer-Policy strict-origin-when-cross-origin
-    }
+	root * /var/www/runventure
+	file_server
+	encode gzip
+
+	# Security headers
+	header {
+		X-Content-Type-Options nosniff
+		X-Frame-Options DENY
+		Referrer-Policy strict-origin-when-cross-origin
+	}
 }
